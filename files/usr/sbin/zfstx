@@ -77,7 +77,7 @@ local_fs=$2
 
 # Check dependencies
 which mbuffer > /dev/null 2>&1 || { echo "ERROR: 'mbuffer' is not installed."; exit 1; }
-[ -n "$pigz" ] && which pigz > /dev/null 2>&1 || { echo "ERROR: 'pigz' is not installed. Install it, or use --no-pigz."; exit 1; }
+[ -n "$pigz" ] || [ $( which pigz > /dev/null; echo "$?" ) -eq 0 ] || { echo "ERROR: 'pigz' is not installed. Install it, or use --no-pigz."; exit 1; }
 
 # Check mandatory options
 [ -z "$remote_host" -o -z "$remote_fs" -o -z "$local_fs" ] && { usage; exit 1; }
